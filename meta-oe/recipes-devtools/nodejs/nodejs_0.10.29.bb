@@ -1,15 +1,15 @@
 DESCRIPTION = "nodeJS Evented I/O for V8 JavaScript"
 HOMEPAGE = "http://nodejs.org"
-LICENSE = "MIT & BSD"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=95a589a3257ab7dfe37d8a8379e3c72d"
+# tools/wrk is under Apache-2.0
+LICENSE = "MIT & BSD & Apache-2.0"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=4a31e6c424761191227143b86f58a1ef"
 
 DEPENDS = "openssl"
 
 SRC_URI = "http://nodejs.org/dist/v${PV}/node-v${PV}.tar.gz \
-           file://0001-gcc-has-a-builtin-define-to-denote-hard-abi-when-in-.patch \
 "
-SRC_URI[md5sum] = "25ed6aa5710ac46b867ff3f17a4da1d6"
-SRC_URI[sha256sum] = "1d63dd42f9bd22f087585ddf80a881c6acbe1664891b1dda3b71306fe9ae00f9"
+SRC_URI[md5sum] = "e14ea9f46f9beecdf4e9423fb626c70b"
+SRC_URI[sha256sum] = "47379d01f765f87c1a1498b4e65de30e45201de50334954860d7375a8258b15d"
 
 S = "${WORKDIR}/node-v${PV}"
 
@@ -22,8 +22,10 @@ ARCHFLAGS ?= ""
 # Node is way too cool to use proper autotools, so we install two wrappers to forcefully inject proper arch cflags to workaround gypi
 do_configure () {
     export LD="${CXX}"
-
-    ./configure --prefix=${prefix} --without-snapshot ${ARCHFLAGS}
+    
+    ./configure --prefix=${prefix} \
+        --without-snapshot \
+        ${ARCHFLAGS}
 }
 
 do_compile () {
